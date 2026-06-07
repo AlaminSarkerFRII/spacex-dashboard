@@ -133,7 +133,6 @@ type LaunchPad {
   images: [String!]!
 }
 
-
 `;
 
 
