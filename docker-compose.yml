@@ -1,0 +1,35 @@
+services:
+
+  # ── Production app ────────────────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # The `test` stage runs jest before `builder` runs next build,
+      # so a failing unit test stops the image from being created.
+      target: runner
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    healthcheck:
+      # Curl the home page; retry until the server is ready.
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # ── E2E test runner ───────────────────────────────────────────
+  e2e:
+    build:
+      context: .
+      dockerfile: Dockerfile.e2e
+    environment:
+      # Tell Playwright to hit the app container, not localhost
+      BASE_URL: http://app:3000
+      CI: "true"
+    depends_on:
+      app:
+        # Only start once the app passes its healthcheck
+        condition: service_healthy

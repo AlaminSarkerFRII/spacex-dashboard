@@ -1,0 +1,21 @@
+# Playwright's official image ships with Chromium, Firefox and WebKit
+# pre-installed — no need to run `playwright install` inside the container.
+FROM mcr.microsoft.com/playwright:v1.60.0-jammy
+
+# Activate pnpm via corepack (Node 20 is already in the Playwright image)
+RUN corepack enable
+
+WORKDIR /app
+
+# Install dependencies first (layer-cached as long as lockfile doesn't change)
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+
+# Skip downloading browsers — they are already present in the base image
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+RUN pnpm install --frozen-lockfile
+
+# Copy the rest of the source
+COPY . .
+
+# Default: run all Playwright tests against BASE_URL (injected by compose)
+CMD ["pnpm", "exec", "playwright", "test", "--reporter=list"]

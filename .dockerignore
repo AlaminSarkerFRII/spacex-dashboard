@@ -1,0 +1,24 @@
+# Dependencies — reinstalled inside the image
+node_modules
+
+# Build output — rebuilt inside the image
+.next
+
+# Git
+.git
+.gitignore
+
+# Test artifacts
+playwright-report
+test-results
+coverage
+
+# Env files — should be injected via Docker secrets or env vars
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.DS_Store
+*.log
+.vscode
