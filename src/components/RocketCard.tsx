@@ -26,7 +26,7 @@ export function RocketCard({ rocket }: { rocket: Rocket }) {
           {rocket.name}
         </h3>
         <span
-          className={`flex-shrink-0 text-xs px-2 py-0.5 rounded-full border ${
+          className={`flex shrink-0 text-xs px-2 py-0.5 rounded-full border ${
             rocket.active
               ? "bg-green-500/10 text-green-400 border-green-500/20"
               : "bg-zinc-500/10 text-zinc-400 border-zinc-500/20"

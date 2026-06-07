@@ -1,6 +1,5 @@
 import { gql } from "@apollo/client";
 
-
 // ------------------- Company Info ------------------
 
 export const GET_COMPANY = gql`
@@ -194,6 +193,45 @@ export const GET_ROCKET = gql`
       flickr_images
       wikipedia
       description
+    }
+  }
+`;
+
+
+// ------------------ Launch Pads ------------------
+
+export const GET_LAUNCH_PADS = gql`
+  query GetLaunchPads {
+    launchPads {
+      id
+      name
+      full_name
+      locality
+      region
+      status
+      launch_attempts
+      launch_successes
+      images
+    }
+  }
+`;
+
+// ------------------ Single Launch Pad ------------------
+
+export const GET_LAUNCH_PAD = gql`
+  query GetLaunchPad($id: ID!) {
+    launchPad(id: $id) {
+      id
+      name
+      full_name
+      locality
+      region
+      details
+      status
+      launch_attempts
+      launch_successes
+      wikipedia
+      images
     }
   }
 `;

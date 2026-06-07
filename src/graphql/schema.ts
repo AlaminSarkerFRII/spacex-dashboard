@@ -6,6 +6,8 @@ export const typeDefs = /* GraphQL */ `
     launchesPast(limit: Int, offset: Int): [Launch!]!
     launchesUpcoming(limit: Int): [Launch!]!
     launch(id: ID!): Launch
+    launchPads: [LaunchPad!]!
+    launchPad(id: ID!): LaunchPad
   }
 
   type Company {
@@ -115,4 +117,23 @@ export const typeDefs = /* GraphQL */ `
     type: String!
     home_port: String!
   }
+
+
+type LaunchPad {
+  id: ID!
+  name: String!
+  full_name: String!
+  locality: String!
+  region: String!
+  details: String!
+  status: String!
+  launch_attempts: Int!
+  launch_successes: Int!
+  wikipedia: String!
+  images: [String!]!
+}
+
+
 `;
+
+

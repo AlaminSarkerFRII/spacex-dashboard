@@ -411,3 +411,87 @@ export const upcomingLaunchesData = [
     launch_site: { site_name_long: "Cape Canaveral Space Force Station Space Launch Complex 40" },
   },
 ];
+
+
+export const launchPadsData = [
+  {
+    id: "vafb-slc-4e",
+    name: "VAFB SLC 4E",
+    full_name: "Vandenberg Space Force Base Space Launch Complex 4E",
+    locality: "Vandenberg Space Force Base",
+    region: "California",
+    details:
+      "SLC-4E at Vandenberg Space Force Base is SpaceX's West Coast launch site, primarily used for polar and sun-synchronous orbit missions. The pad was originally built for the Titan III rocket and later converted for Falcon 9 use.",
+    status: "active",
+    launch_attempts: 62,
+    launch_successes: 61,
+    wikipedia: "https://en.wikipedia.org/wiki/Vandenberg_Space_Launch_Complex_4",
+    images: [
+      "https://images2.imgbox.com/e7/d7/v0w3BJdp_o.png",
+    ],
+  },
+  {
+    id: "ccafs-slc-40",
+    name: "CCAFS SLC 40",
+    full_name: "Cape Canaveral Space Force Station Space Launch Complex 40",
+    locality: "Cape Canaveral",
+    region: "Florida",
+    details:
+      "SLC-40 is SpaceX's primary East Coast launch pad, handling the bulk of Falcon 9 commercial satellite missions and ISS cargo runs. After a 2016 pad explosion during a static fire, it was rebuilt and returned to service in late 2017.",
+    status: "active",
+    launch_attempts: 95,
+    launch_successes: 94,
+    wikipedia: "https://en.wikipedia.org/wiki/Cape_Canaveral_Space_Launch_Complex_40",
+    images: [
+      "https://images2.imgbox.com/e0/a7/FNjvKlXo_o.png",
+    ],
+  },
+  {
+    id: "ksc-lc-39a",
+    name: "KSC LC 39A",
+    full_name: "Kennedy Space Center Historic Launch Complex 39A",
+    locality: "Kennedy Space Center",
+    region: "Florida",
+    details:
+      "LC-39A is SpaceX's most storied launch pad, originally built for the Apollo Saturn V and later used for the Space Shuttle. SpaceX leased it in 2014 and uses it for crewed Dragon missions, Falcon Heavy launches, and high-energy commercial payloads.",
+    status: "active",
+    launch_attempts: 71,
+    launch_successes: 71,
+    wikipedia: "https://en.wikipedia.org/wiki/Kennedy_Space_Center_Launch_Complex_39",
+    images: [
+      "https://images2.imgbox.com/80/b0/GNqHKuqE_o.png",
+    ],
+  },
+  {
+    id: "starbase-texas",
+    name: "Starbase",
+    full_name: "SpaceX Starbase, Boca Chica",
+    locality: "Boca Chica Village",
+    region: "Texas",
+    details:
+      "Starbase is SpaceX's dedicated Starship development and launch facility located on the southern tip of Texas near the Mexican border. The site hosts the Orbital Launch Mount (OLM) used for all Starship integrated flight tests, and includes the Mechazilla catch tower capable of catching returning boosters mid-air.",
+    status: "active",
+    launch_attempts: 8,
+    launch_successes: 4,
+    wikipedia: "https://en.wikipedia.org/wiki/SpaceX_Starbase",
+    images: [
+      "https://images2.imgbox.com/6f/d8/kGrFXgYS_o.png",
+    ],
+  },
+  {
+    id: "kwajalein-atoll",
+    name: "Omelek Island",
+    full_name: "Kwajalein Atoll Omelek Island",
+    locality: "Omelek Island",
+    region: "Marshall Islands",
+    details:
+      "Omelek Island in the Kwajalein Atoll was SpaceX's very first launch site, used exclusively for the Falcon 1 rocket between 2006 and 2009. Its remote Pacific location provided safe ocean corridors for the first four Falcon 1 flights. The site is now decommissioned.",
+    status: "retired",
+    launch_attempts: 5,
+    launch_successes: 2,
+    wikipedia: "https://en.wikipedia.org/wiki/Omelek_Island",
+    images: [
+      "https://images2.imgbox.com/c5/83/GJYIgKc0_o.png",
+    ],
+  },
+];
