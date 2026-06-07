@@ -52,7 +52,7 @@ export function LaunchCard({ launch }: { launch: Launch }) {
           <span>{formattedDate}</span>
           {launch.rocket && <span>{launch.rocket.rocket_name}</span>}
           {launch.launch_site && (
-            <span className="truncate max-w-[200px]">{launch.launch_site.site_name_long}</span>
+            <span className="truncate max-w-50">{launch.launch_site.site_name_long}</span>
           )}
         </div>
 

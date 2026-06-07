@@ -20,7 +20,7 @@ export function ShipCard({ ship }: { ship: Ship }) {
       className="group flex gap-4 p-5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all"
     >
       {/* Icon / avatar */}
-      <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center text-2xl">
+      <div className="shrink-0 w-14 h-14 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center text-2xl">
         {typeIcon(ship.type)}
       </div>
 
@@ -64,13 +64,13 @@ export function ShipCard({ ship }: { ship: Ship }) {
 function StatusBadge({ active, status }: { active: boolean; status: string }) {
   if (active) {
     return (
-      <span className="flex-shrink-0 text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20 capitalize">
+      <span className="shrink-0 text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20 capitalize">
         {status}
       </span>
     );
   }
   return (
-    <span className="flex-shrink-0 text-xs px-2 py-0.5 rounded-full bg-zinc-500/10 text-zinc-400 border border-zinc-500/20 capitalize">
+    <span className="shrink-0 text-xs px-2 py-0.5 rounded-full bg-zinc-500/10 text-zinc-400 border border-zinc-500/20 capitalize">
       {status}
     </span>
   );

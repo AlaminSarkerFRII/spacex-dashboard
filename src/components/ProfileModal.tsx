@@ -36,7 +36,7 @@ export function ProfileModal({ onClose }: ProfileModalProps) {
     >
       <div className="w-72 rounded-2xl bg-zinc-900 border border-white/10 shadow-2xl overflow-hidden">
         {/* Header banner */}
-        <div className="h-16 bg-gradient-to-r from-zinc-800 to-zinc-700 relative" />
+        <div className="h-16 bg-linear-to-r from-zinc-800 to-zinc-700 relative" />
 
         {/* Avatar overlapping the banner */}
         <div className="px-5 pb-5">
