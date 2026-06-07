@@ -27,6 +27,7 @@ interface LaunchesData {
 
 export default function LaunchesPage() {
   const [filter, setFilter] = useState<Filter>("all");
+  const [search, setSearch] = useState("");
   const [offset, setOffset] = useState(0);
 
   const { data, loading, error } = useQuery<LaunchesData>(GET_PAST_LAUNCHES, {
@@ -38,9 +39,28 @@ export default function LaunchesPage() {
 
   const allLaunches = data?.launchesPast ?? [];
 
+  const query = search.trim().toLowerCase();
+
   const filtered = allLaunches.filter((l) => {
-    if (filter === "success") return l.launch_success === true;
-    if (filter === "failed") return l.launch_success === false;
+    // status filter
+    if (filter === "success" && l.launch_success !== true) return false;
+    if (filter === "failed" && l.launch_success !== false) return false;
+
+    // search filter — mission name, rocket, site, details
+    if (query) {
+      const haystack = [
+        l.mission_name,
+        l.rocket?.rocket_name,
+        l.rocket?.rocket_type,
+        l.launch_site?.site_name_long,
+        l.details,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(query);
+    }
+
     return true;
   });
 
@@ -51,10 +71,15 @@ export default function LaunchesPage() {
   const successCount = allLaunches.filter((l) => l.launch_success === true).length;
   const failedCount = allLaunches.filter((l) => l.launch_success === false).length;
 
-  const handleFilterChange = (f: Filter) => {
+  function handleFilterChange(f: Filter) {
     setFilter(f);
     setOffset(0);
-  };
+  }
+
+  function handleSearch(value: string) {
+    setSearch(value);
+    setOffset(0);
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
@@ -65,32 +90,76 @@ export default function LaunchesPage() {
         </p>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="flex items-center gap-2">
-        {(
-          [
-            { key: "all", label: `All (${allLaunches.length})` },
-            { key: "success", label: `Success (${successCount})` },
-            { key: "failed", label: `Failed (${failedCount})` },
-          ] as { key: Filter; label: string }[]
-        ).map(({ key, label }) => (
+      {/* Search */}
+      <div className="relative">
+        <svg
+          className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none"
+          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round"
+            d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+        </svg>
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => handleSearch(e.target.value)}
+          placeholder="Search by mission, rocket, or launch site…"
+          className="w-full rounded-xl bg-white/5 border border-white/10 pl-10 pr-10 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-white/25 focus:bg-white/8 transition-colors"
+        />
+        {search && (
           <button
-            key={key}
-            onClick={() => handleFilterChange(key)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              filter === key
-                ? "bg-white text-black"
-                : "text-zinc-400 border border-white/10 hover:border-white/20 hover:text-white"
-            }`}
+            onClick={() => handleSearch("")}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white transition-colors"
+            aria-label="Clear search"
           >
-            {label}
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </button>
-        ))}
+        )}
       </div>
 
-      {/* Launch List */}
+      {/* Filter tabs + result count */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          {(
+            [
+              { key: "all", label: `All (${allLaunches.length})` },
+              { key: "success", label: `Success (${successCount})` },
+              { key: "failed", label: `Failed (${failedCount})` },
+            ] as { key: Filter; label: string }[]
+          ).map(({ key, label }) => (
+            <button
+              key={key}
+              onClick={() => handleFilterChange(key)}
+              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${filter === key
+                ? "bg-white text-black"
+                : "text-zinc-400 border border-white/10 hover:border-white/20 hover:text-white"
+                }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* Result count when searching */}
+        {query && (
+          <p className="text-sm text-zinc-500">
+            <span className="text-white font-medium">{filtered.length}</span>{" "}
+            result{filtered.length !== 1 ? "s" : ""} for{" "}
+            <span className="text-zinc-300">&ldquo;{search.trim()}&rdquo;</span>
+          </p>
+        )}
+      </div>
+
+      {/* Launch list */}
       {paginated.length === 0 ? (
-        <p className="text-zinc-500 py-12 text-center">No launches match this filter.</p>
+        <div className="py-16 text-center">
+          <p className="text-zinc-400 font-medium">No launches found</p>
+          <p className="text-zinc-600 text-sm mt-1">
+            {query ? `No results for "${search.trim()}" — try a different term.` : "No launches match this filter."}
+          </p>
+        </div>
       ) : (
         <div className="space-y-3">
           {paginated.map((launch) => (
@@ -100,7 +169,7 @@ export default function LaunchesPage() {
       )}
 
       {/* Pagination */}
-      {(hasPrev || hasMore) && (
+      {!query && (hasPrev || hasMore) && (
         <div className="flex items-center justify-between pt-2">
           <button
             onClick={() => setOffset((o) => Math.max(0, o - PAGE_SIZE))}

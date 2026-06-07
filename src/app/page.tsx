@@ -172,7 +172,7 @@ function StatCard({ label, value, small }: { label: string; value: string; small
 function LeaderCard({ role, name }: { role: string; name: string }) {
   return (
     <div className="rounded-xl border border-white/10 bg-white/5 p-4 flex items-center gap-3">
-      <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-white flex-shrink-0">
+      <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-white shrink-0">
         {name.charAt(0)}
       </div>
       <div>
