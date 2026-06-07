@@ -1,4 +1,4 @@
-import { companyData, rocketsData, launchesData, upcomingLaunchesData, launchPadsData } from "./data";
+import { companyData, rocketsData, launchesData, upcomingLaunchesData, launchPadsData, shipsData } from "./data";
 
 export const resolvers = {
   Query: {
@@ -27,5 +27,10 @@ export const resolvers = {
 
     launchPad: (_: unknown, { id }: { id: string }) =>
       launchPadsData.find((lp) => lp.id === id) ?? null,
+
+    ships: () => shipsData,
+
+    ship: (_: unknown, { id }: { id: string }) =>
+      shipsData.find((s) => s.id === id) ?? null,
   },
 };

@@ -1,13 +1,19 @@
 export const typeDefs = /* GraphQL */ `
   type Query {
     company: Company
+
     rockets: [Rocket!]!
     rocket(id: ID!): Rocket
+
     launchesPast(limit: Int, offset: Int): [Launch!]!
     launchesUpcoming(limit: Int): [Launch!]!
     launch(id: ID!): Launch
+
     launchPads: [LaunchPad!]!
     launchPad(id: ID!): LaunchPad
+
+    ships: [Ship!]!
+    ship(id: ID!): Ship
   }
 
   type Company {
@@ -112,13 +118,6 @@ export const typeDefs = /* GraphQL */ `
     flickr_images: [String!]!
   }
 
-  type Ship {
-    name: String!
-    type: String!
-    home_port: String!
-  }
-
-
 type LaunchPad {
   id: ID!
   name: String!
@@ -133,6 +132,21 @@ type LaunchPad {
   images: [String!]!
 }
 
+type Ship {
+  id: ID!
+  name: String!
+  type: String!
+  roles: [String!]!
+  home_port: String!
+  active: Boolean!
+  status: String!
+  imo: Int
+  mmsi: Int
+  year_built: Int
+  image: String
+  url: String
+  launches: [String!]!
+}
 `;
 
 

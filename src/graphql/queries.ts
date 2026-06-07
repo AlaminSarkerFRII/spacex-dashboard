@@ -235,3 +235,50 @@ export const GET_LAUNCH_PAD = gql`
     }
   }
 `;
+
+
+
+// ------------------ Ships ------------------
+
+export const GET_SHIPS = gql`
+  query GetShips {
+    ships {
+      id
+      name
+      type
+      roles
+      home_port
+      active
+      status
+      imo
+      mmsi
+      year_built
+      image
+      url
+    }
+  }
+`;
+
+
+
+// ------------------ Single Ship ------------------
+
+export const GET_SHIP = gql`
+  query GetShip($id: ID!) {
+    ship(id: $id) {
+      id
+      name
+      type
+      roles
+      home_port
+      active
+      status
+      imo
+      mmsi
+      year_built
+      image
+      url
+      launches
+    }
+  }
+`;

@@ -9,7 +9,7 @@ interface Ship {
   status: string;
   active: boolean;
   year_built: number | null;
-  launches: string[];
+  launches?: string[];
   image: string | null;
 }
 
@@ -54,7 +54,7 @@ export function ShipCard({ ship }: { ship: Ship }) {
 
         {/* Launch count */}
         <p className="mt-2 text-xs text-zinc-500">
-          {ship.launches.length} mission{ship.launches.length !== 1 ? "s" : ""} supported
+          {ship.launches?.length ?? 0} mission{(ship.launches?.length ?? 0) !== 1 ? "s" : ""} supported
         </p>
       </div>
     </Link>
